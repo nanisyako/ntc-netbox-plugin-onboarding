@@ -336,6 +336,18 @@ class NetdevKeeper:
             logging.info("COLLECT: device interface IPs")
             ip_ifs = dev.get_interfaces_ip()
 
+            try:
+                import importlib
+                module_name = f"ntc-netbox-plugin-onboarding.napalm_addons.{driver_name}"
+                module = importlib.import_module(module_name)
+                driver_addon_class = module.NapalmDeviceExtensions(
+                    napalm_device=dev
+                )
+                onboarding_class = driver_addon_class.get_onboarding_class()
+            except ImportError as exc:
+                pass
+                # raise OnboardException(reason="fail-general", message=str(exc))
+
         except ConnectionException as exc:
             raise OnboardException(reason="fail-login", message=exc.args[0])
 
