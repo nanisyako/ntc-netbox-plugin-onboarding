@@ -23,4 +23,8 @@ disable=bad-continuation,
   too-few-public-methods,
   too-many-ancestors,
   too-many-instance-attributes,
-  duplicate-code
+  duplicate-code,
+  too-many-arguments,
+  too-many-locals,
+  too-many-statements,
+  broad-except
